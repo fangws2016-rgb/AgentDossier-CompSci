@@ -1,0 +1,13 @@
+# Compiled output
+*.class
+bin/
+out/
+target/
+
+# IDE and OS noise
+.vscode/
+.DS_Store
+Thumbs.db
+
+# IntelliJ: .idea/ and the .iml ARE committed on purpose - without them a fresh clone
+# has no module, no source root and no Run button. Per-user files: see .idea/.gitignore.
