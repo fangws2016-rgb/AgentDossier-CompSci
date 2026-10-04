@@ -76,8 +76,6 @@ public class SecretAgent {
             // Two names, e.g. "Maya Adams".  rest is the last name.
             // TODO: last = ...
             // TODO: initials = ...          -> "MA"
-
-            System.out.println(first+" "+rest);
             last=rest;
             initials =""+first.charAt(0)+rest.charAt(0);
 
@@ -88,9 +86,6 @@ public class SecretAgent {
             // TODO: initials = ...          -> "REL"
             middle =fullName.substring(firstSpace+1, secondSpace);
             last =fullName.substring(secondSpace+1);
-            System.out.println(first);
-            System.out.println(" "+middle);
-            System.out.println(" "+last);
             initials = ""+ first.charAt(0)+middle.charAt(0)+last.charAt(0);
 
         }
@@ -109,15 +104,13 @@ public class SecretAgent {
         String day   = "";   // TODO: substring
         try {
             int firstHyphen = dob.indexOf("-");
-
             year = dob.substring(0, firstHyphen);
-
             int secondHyphen = dob.indexOf("-", firstHyphen + 1);
-
             month = dob.substring(firstHyphen + 1, secondHyphen);
-
             day = dob.substring(secondHyphen + 1);
-
+            if (year.length()>4 || month.length()>2 || day.length()>2){
+                System.out.println("Submitted incorrect format");
+            }
             int birthYear = Integer.parseInt(year);
 
             System.out.println("Born: " + month + "/" + day + "/" + year
@@ -139,6 +132,7 @@ public class SecretAgent {
             yearLength-=2;
             agentID=(""+firstLetter.toLowerCase()+last.toLowerCase()+year.substring(yearLength));
             System.out.println("Agent ID: " +agentID);
+
 
 
 
@@ -210,15 +204,36 @@ public class SecretAgent {
 
    1. Date of birth  2009-9-30        Which catch ran? Why that one?
 
+   //nothing happened because I used the hyphens rather than hardcoding it with the specific number of indexes
+   for the age. However, assuming i did, it would be StringIndexOutOfBoundsException because the #of indexes
+   would be less than the required YYYY-MM-DD by 1
+
    2. Date of birth  Sept 30 2009     Which catch ran? Why that one?
+
+   //assuming I hardcoded it (int year =dob.substring(0,4), it would be the second catch NumberFormatException
+   because Sept is not a number so it would not be able to parse it
 
    3. Email with no @:  rleebvsd.org
       Did it crash? What did the dossier say, and is it telling the truth?
+
+    it did not crash, but it did say "DENIED". the code works as normal, but bc it can't find the @ it says
+    the index = -1, so +1 makes it 0, which just gives me the entire code (so no out of bounds exception)
+    but regardless that doesn't fit with the domain bc it still can't find the @ so it says denied
 
    4. Change domain.equals(agencyDomain) back to  domain == agencyDomain
       and run it with a correct bvsd.org email. What happens? Why?
       (Then change it back again.)
 
+      it says Clearance denied because you can't equate Strings; String is simply a reference variable
+      and == is saying if the two variables point to the SAME object but that is never true because the two Strings
+      were created separately
+
    5. Type your last name all in lowercase. Where were you filed? Why?
+
+      i am always filed after my handler regardless of the actual letter. this is because compareTo uses unicode
+      and sometimes ASCII which gives uppercase letters lower numbers compared to lowercase so the
+      difference is always negative
+
+
 
    ======================================================================= */
